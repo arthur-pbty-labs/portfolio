@@ -20,10 +20,11 @@ export default function EditProjectForm({
 
   useEffect(() => {
     if (!initialTitle) {
+      const decodedTitle = decodeURIComponent(params.title as string);
       fetch(`/api/project`)
         .then(res => res.json())
         .then(data => {
-          const project = data.find((p: any) => p.title === params.title);
+          const project = data.find((p: any) => p.title === decodedTitle);
           if (project) {
             setTitle(project.title);
             setDesc(project.desc);
@@ -35,7 +36,8 @@ export default function EditProjectForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await fetch(`/api/project/${encodeURIComponent(params.title as string)}`, {
+    const decodedTitle = decodeURIComponent(params.title as string);
+    await fetch(`/api/project/${encodeURIComponent(decodedTitle)}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, desc, img }),

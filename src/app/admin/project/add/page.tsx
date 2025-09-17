@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import UniversalBackButton from "@/components/UniversalBackButton";
 
 export default function AddProjectPage() {
   const [title, setTitle] = useState("");
@@ -44,12 +45,15 @@ export default function AddProjectPage() {
           onChange={e => setImg(e.target.value)}
           className="border rounded px-4 py-2"
         />
-        <button
-          type="submit"
-          className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition font-semibold"
-        >
-          Ajouter
-        </button>
+        <div className="flex gap-4 mt-4">
+          <button
+            type="submit"
+            className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition font-semibold"
+          >
+            Ajouter
+          </button>
+          <UniversalBackButton to="/admin/project" label="Annuler" color="gray" />
+        </div>
       </form>
     </section>
   );

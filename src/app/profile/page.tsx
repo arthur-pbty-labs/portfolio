@@ -1,7 +1,7 @@
 "use client";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
+import UniversalBackButton from "@/components/UniversalBackButton";
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -25,12 +25,7 @@ export default function ProfilePage() {
         >
           Se connecter
         </a>
-        <Link
-          href="/"
-          className="mt-4 px-6 py-2 bg-gray-200 text-foreground rounded hover:bg-gray-300"
-        >
-          Retour à l'accueil
-        </Link>
+        <UniversalBackButton to="/" label="Retour à l'accueil" color="gray" />
       </div>
     );
   }
@@ -63,7 +58,7 @@ export default function ProfilePage() {
           <div className="mb-2">
             <span className="font-semibold">Provider :</span>{" "}
             <span>
-              {session?.user?.email?.includes("gmail.com")
+              {user?.email?.includes("gmail.com")
                 ? "Google"
                 : "GitHub"}
             </span>
@@ -75,12 +70,7 @@ export default function ProfilePage() {
         >
           Déconnexion
         </button>
-        <Link
-          href="/"
-          className="mt-4 px-6 py-2 bg-gray-200 text-foreground rounded hover:bg-gray-300"
-        >
-          Retour à l'accueil
-        </Link>
+        <UniversalBackButton to="/" label="Retour à l'accueil" color="gray" />
       </div>
     </div>
   );

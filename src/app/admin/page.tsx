@@ -1,11 +1,11 @@
 import Link from "next/link";
-import BackHomeButton from "@/components/BackHomeButton";
+import UniversalBackButton from "@/components/UniversalBackButton";
 
 export default function AdminPage() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center">
       <header className="w-full flex justify-start px-8 pt-8">
-        <BackHomeButton />
+        <UniversalBackButton to="/" label="← Retour à l'accueil" color="blue" />
       </header>
       <main className="flex flex-col items-center justify-center flex-1 w-full">
         <div className="bg-white rounded-2xl shadow-xl p-10 flex flex-col items-center max-w-md w-full">

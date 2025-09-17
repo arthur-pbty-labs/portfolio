@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { PrismaClient } from "@/generated/prisma";
 import Image from "next/image";
-import BackButton from "@/components/BackButton";
+import UniversalBackButton from "@/components/UniversalBackButton";
 
 const prisma = new PrismaClient();
 
@@ -14,13 +14,14 @@ type Props = {
 };
 
 export default async function ProjectPage({ params }: Props) {
+  const { slug } = await params;
   const projects = await prisma.project.findMany();
-  const project = projects.find((p) => slugify(p.title) === params.slug);
+  const project = projects.find((p) => slugify(p.title) === slug);
   if (!project) return notFound();
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center">
-      <BackButton />
+      <UniversalBackButton to="/#accueil" label="← Retour à l’accueil" color="gray" />
       <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
       {project.img && (
         <Image
