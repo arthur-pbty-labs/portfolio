@@ -1,9 +1,13 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react"; // Retirer signOut
+
+const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "arthur.puechberty@outlook.com";
 
 export default function SidebarNav() {
 	const [navOpen, setNavOpen] = useState(false);
+	const { data: session, status } = useSession();
 
 	return (
 		<>
@@ -42,12 +46,33 @@ export default function SidebarNav() {
 							<a href="#contact" className="mb-4 hover:underline">
 								Contact
 							</a>
-							<Link
-								href="/login"
-								className="block py-2 px-4 hover:bg-gray-200 rounded"
-							>
-								Connexion
-							</Link>
+							{status === "loading" ? (
+								<span className="block py-2 px-4">Chargement...</span>
+							) : session ? (
+								<>
+									<Link
+										href="/profile"
+										className="block py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 mb-2"
+									>
+										Profil
+									</Link>
+									{session.user?.email === adminEmail && (
+										<Link
+											href="/admin"
+											className="block py-2 px-4 bg-purple-500 text-white rounded hover:bg-purple-600 mb-2"
+										>
+											Admin
+										</Link>
+									)}
+								</>
+							) : (
+								<Link
+									href="/login"
+									className="block py-2 px-4 hover:bg-gray-200 rounded"
+								>
+									Connexion
+								</Link>
+							)}
 						</>
 					)}
 				</nav>

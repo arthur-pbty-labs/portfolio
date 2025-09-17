@@ -30,6 +30,7 @@ export default async function Home() {
 					width={500}
 					height={500}
 					className="rounded-full"
+					priority // Ajouté pour LCP
 				/>
 			</div>
 			<div id="projets" className="p-8">
